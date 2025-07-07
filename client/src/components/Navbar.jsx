@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { FiMenu, FiX } from "react-icons/fi";
 import ravi from "../assets/ravi.svg";
 import { Link } from "react-router-dom";
@@ -37,28 +37,29 @@ return (
                 </Link>
             </div>
 
-            <div className="hidden sm:flex absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 gap-10 text-lg sm:text-xl font-medium text-gray-700">
-                <Link
-                    to="/about"
-                    className="hover:text-green-700 transition duration-300"
-                >
-                    About Me
-                </Link>
-                <Link
-                    to="/work"
-                    className="hover:text-green-700 transition duration-300"
-                >
-                    My Work
-                </Link>
-            </div>
+           <div className="hidden md:flex flex-1 justify-center gap-6 md:gap-10 text-base md:text-xl font-medium text-gray-700">
+    <Link
+        to="/about"
+        className="hover:text-green-700 transition duration-300"
+    >
+        About Me
+    </Link>
+    <Link
+        to="/work"
+        className="hover:text-green-700 transition duration-300"
+    >
+        My Work
+    </Link>
+</div>
 
-            <div className="hidden sm:flex">
-                <button className="px-6 py-2 sm:py-3 text-base sm:text-lg font-semibold bg-green-600 text-white rounded-full shadow-md hover:bg-green-700 transition duration-300">
+
+            <div className="hidden md:flex">
+                <button className="px-4 md:px-6 py-2 md:py-3 text-base md:text-lg font-semibold bg-green-600 text-white rounded-full shadow-md hover:bg-green-700 transition duration-300">
                     Sign In
                 </button>
             </div>
 
-            <div className="sm:hidden">
+            <div className="md:hidden">
                 <button onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle Menu">
                     {menuOpen ? (
                         <FiX className="w-8 h-8 text-green-700 rotate-90 transition duration-300" />
@@ -72,10 +73,10 @@ return (
         <div
             className={`
                 fixed top-0 left-0 w-full h-full z-50 flex flex-col items-center justify-center
-                gap-8 text-xl font-semibold text-gray-700
+                gap-8 text-lg md:text-xl font-semibold text-gray-700
                 transition-all duration-500
                 ${menuOpen ? "opacity-100 visible scale-100 translate-y-0" : "opacity-0 invisible scale-95 -translate-y-10 pointer-events-none"}
-                sm:hidden
+                md:hidden
             `}
             style={{
                 background:
