@@ -7,6 +7,7 @@ import imagerouter from './routes/image.route.js';
 dotenv.config();
 Connect();
 const app = express();
+app.use(cors())
 app.use(express.json());
 app.use(cors())
 app.use('/api/user', userrouter)

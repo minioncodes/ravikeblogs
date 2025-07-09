@@ -44,8 +44,8 @@ const Home = () => {
                 {currentIndex === 0 && (
                     <Link
                         to="/about"
-                        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-transparent text-white px-6 py-3 md:px-12 md:py-5 rounded-lg text-lg md:text-2xl font-semibold shadow-lg border border-white"
-                        style={{ pointerEvents: "auto", background: "rgba(255,255,255,0.1)", zIndex: 2 }}
+                        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white px-6 py-3 md:px-12 md:py-5 rounded-lg text-lg lg:text-7xl font-semibold shadow-lg"
+                        style={{ pointerEvents: "auto", zIndex: 2 }}
                     >
                         About Me
                     </Link>
@@ -53,8 +53,8 @@ const Home = () => {
                 {currentIndex === 1 && (
                     <Link
                         to="/work"
-                        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-transparent text-white border border-white px-6 py-3 md:px-12 md:py-5 rounded-lg text-lg md:text-2xl font-semibold shadow-lg"
-                        style={{ pointerEvents: "auto", background: "rgba(255,255,255,0.1)", zIndex: 2 }}
+                        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white px-6 py-3 md:px-12 md:py-5 rounded-lg text-lg md:text-7xl font-semibold shadow-lg"
+                        style={{ pointerEvents: "auto", zIndex: 2 }}
                     >
                         My Work
                     </Link>

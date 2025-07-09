@@ -9,7 +9,7 @@ export const usignup = async function (req, res) {
     try {
         const { username, password, email, fullname } = req.body;
         console.log("req body = ", req.body);
-        const isuser = await UserLogin.findOne({ email });
+        const isuser = await UserModel.findOne({ email });
         if (isuser) {
             return res.status(400).json({
                 msg: "already in the building"
