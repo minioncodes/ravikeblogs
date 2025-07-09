@@ -1,11 +1,11 @@
 import mongoose from "mongoose";
 
 const ImageSchema = new mongoose.Schema({
-    user: {
-        type: mongoose.Types.ObjectId,
-        ref: 'UserLogin',
-        required: true
-    },
+    // user: {
+    //     type: mongoose.Types.ObjectId,
+    //     ref: 'UserLogin',
+    //     // required: true
+    // },
     url: {
         type: String,
         required: true

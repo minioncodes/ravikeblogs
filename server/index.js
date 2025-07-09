@@ -8,6 +8,7 @@ dotenv.config();
 Connect();
 const app = express();
 app.use(express.json());
+app.use(cors())
 app.use('/api/user', userrouter)
 app.use('/api/image',imagerouter);
 
