@@ -9,7 +9,8 @@ Connect();
 const app = express();
 app.use(cors())
 app.use(express.json());
-app.use('/api/admin', userrouter)
+app.use(cors())
+app.use('/api/user', userrouter)
 app.use('/api/image',imagerouter);
 
 const port = 3000;

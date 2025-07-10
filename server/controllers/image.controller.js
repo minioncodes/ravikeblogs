@@ -1,5 +1,8 @@
 import ImageModel from "../models/img.schema.js";
+import multer from "multer";
+import { storage } from "../config/cloudinary.js";
 
+const upload = multer({ storage });
 export const uploadImage = async function (req, res) {
     try {
         const { url, name, size } = req.body;
@@ -35,18 +38,41 @@ export const getUserImages = async function (req, res) {
 export const getSingleImage = async function (req, res) {
     try {
         const { id } = req.params;
-        console.log("id = ",id);
+        console.log("id = ", id);
         if (!id) {
             return res.status(404).json({ success: false, msg: "sorry can't find the id" });
         }
-        const image=await ImageModel.findById(id);
-        if(!image){
-            return res.status(404).json({success:false,msg:"sorry no content found!"});
+        const image = await ImageModel.findById(id);
+        if (!image) {
+            return res.status(404).json({ success: false, msg: "sorry no content found!" });
         }
-        return res.status(200).json({image});
+        return res.status(200).json({ image });
     } catch (e) {
-        console.log("err from the catch = ",e.message);
-        return res.status(500).json({msg:e.message})
+        console.log("err from the catch = ", e.message);
+        return res.status(500).json({ msg: e.message })
     }
 }
+export const uploadImageFromPC = async function (req, res) {
+    console.log("upload image from pc got called")
+    try {
+        // const userId = req.user.id;
+        // console.log("user id = ", userId);
+
+        if (!req.file || !req.file.path) {
+            return res.status(400).json({ message: "sorry the file is required" });
+        }
+
+        const image = await ImageModel.create({
+            // user: userId,
+            url: req.file.path,
+            name: req.file.originalname,
+            size: req.file.size,
+        });
+
+        return res.status(201).json({ success: true, image });
+    } catch (error) {
+        console.error("err uploadin the image = ", error);
+        return res.status(500).json({ success: false, message: "server err" });
+    }
+};
 
