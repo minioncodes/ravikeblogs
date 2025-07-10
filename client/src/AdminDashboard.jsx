@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { FiMenu, FiX } from "react-icons/fi";
 
 const AdminDashboard = () => {
-  const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [adminEmail, setAdminEmail] = useState("");
+  const [activeSection, setActiveSection] = useState("home");
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem("access_token");
     const email = localStorage.getItem("admin_email");
-
 
     if (!token) {
       navigate("/admin");
@@ -22,7 +25,42 @@ const AdminDashboard = () => {
   const handleLogout = () => {
     localStorage.removeItem("access_token");
     localStorage.removeItem("admin_email");
-    navigate("/admin");
+    navigate("/");
+  };
+
+  const renderSection = () => {
+    switch (activeSection) {
+      case "home":
+        return (
+          <div>
+            <h1 className="text-3xl font-bold text-green-400 mb-4">All Pictures</h1>
+            <p className="text-gray-300">Here you can view all uploaded images.</p>
+          </div>
+        );
+      case "upload":
+        return (
+          <div>
+            <h1 className="text-3xl font-bold text-green-400 mb-4">Upload New</h1>
+            <p className="text-gray-300">Upload new pictures to the gallery.</p>
+          </div>
+        );
+      case "sort":
+        return (
+          <div>
+            <h1 className="text-3xl font-bold text-green-400 mb-4">Sort Pictures</h1>
+            <p className="text-gray-300">Organize and sort your pictures.</p>
+          </div>
+        );
+      case "settings":
+        return (
+          <div>
+            <h1 className="text-3xl font-bold text-green-400 mb-4">Change Password</h1>
+            <p className="text-gray-300">Update your account password.</p>
+          </div>
+        );
+      default:
+        return null;
+    }
   };
 
   if (loading) {
@@ -34,34 +72,46 @@ const AdminDashboard = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-100 via-green-100 to-gray-300 p-10">
-      <div className="max-w-5xl mx-auto bg-white shadow-lg rounded-xl p-8">
-        <div className="flex justify-between items-center mb-6">
-          <h1 className="text-3xl font-bold text-green-700">Admin Dashboard</h1>
+    <div className="min-h-screen flex flex-col md:flex-row bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white">
+
+    
+      <div className="md:hidden flex items-center justify-between p-4 border-b border-gray-700 bg-black bg-opacity-40 backdrop-blur-lg">
+        <h2 className="text-xl font-bold text-green-400">Admin Panel</h2>
+        <button onClick={() => setSidebarOpen(!sidebarOpen)} className="text-white text-2xl">
+          {sidebarOpen ? <FiX /> : <FiMenu />}
+        </button>
+      </div>
+
+  
+      <aside
+        className={`${
+          sidebarOpen ? "block" : "hidden"
+        } md:block w-full md:w-64 h-full md:h-screen bg-black bg-opacity-30 backdrop-blur-lg border-r border-gray-700 p-6 fixed md:relative z-50`}
+      >
+        <nav className="space-y-5 text-lg font-medium">
+          <button onClick={() => { setActiveSection("home"); setSidebarOpen(false); }} className="block w-full text-left hover:text-green-400">
+             All Pictures
+          </button>
+          <button onClick={() => { setActiveSection("upload"); setSidebarOpen(false); }} className="block w-full text-left hover:text-green-400">
+            Upload New
+          </button>
+          <button onClick={() => { setActiveSection("sort"); setSidebarOpen(false); }} className="block w-full text-left hover:text-green-400">
+            Sort Pictures
+          </button>
+          <button onClick={() => { setActiveSection("settings"); setSidebarOpen(false); }} className="block w-full text-left hover:text-green-400">
+             Change Password
+          </button>
           <button
             onClick={handleLogout}
-            className="bg-red-500 hover:bg-red-600 text-white font-medium px-4 py-2 rounded"
+            className="block text-left text-red-500 hover:text-red-400 w-full pt-4"
           >
             Logout
           </button>
-        </div>
+        </nav>
+      </aside>
 
-        <p className="text-gray-600 mb-6">
-          Logged in as: <span className="font-semibold">{adminEmail}</span>
-        </p>
-
-        {/* Dashboard features */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="bg-gray-100 p-6 rounded-lg shadow hover:shadow-md transition">
-            <h2 className="text-xl font-semibold mb-3">📤 Upload Images</h2>
-            <p className="text-sm text-gray-600">Coming soon: Upload new blog images</p>
-          </div>
-          <div className="bg-gray-100 p-6 rounded-lg shadow hover:shadow-md transition">
-            <h2 className="text-xl font-semibold mb-3">🗑️ Delete Images</h2>
-            <p className="text-sm text-gray-600">Coming soon: Manage uploaded content</p>
-          </div>
-        </div>
-      </div>
+     
+      <main className="flex-1 p-6 md:ml-64 mt-16 md:mt-0">{renderSection()}</main>
     </div>
   );
 };
