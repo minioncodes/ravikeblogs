@@ -20,7 +20,7 @@ function ChangePassword() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-black px-4">
+    <div className="flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-black px-4">
       <div className="w-full max-w-md backdrop-blur-md bg-white/10 border border-white/20 rounded-xl shadow-xl p-8">
         <h2 className="text-2xl font-semibold text-center mb-6 text-white">
           Change Password
