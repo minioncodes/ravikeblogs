@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FiMenu, FiX } from "react-icons/fi";
+import Gallery from "./Gallery";
+import AddImages from "./AddImages";
+import ChangePassword from "./ChangePassword";
 
 const AdminDashboard = () => {
   const [loading, setLoading] = useState(true);
@@ -30,33 +33,25 @@ const AdminDashboard = () => {
 
   const renderSection = () => {
     switch (activeSection) {
-      case "home":
+      case "gallery":
         return (
-          <div>
-            <h1 className="text-3xl font-bold text-green-400 mb-4">All Pictures</h1>
-            <p className="text-gray-300">Here you can view all uploaded images.</p>
-          </div>
+        <Gallery />
+
         );
       case "upload":
         return (
-          <div>
-            <h1 className="text-3xl font-bold text-green-400 mb-4">Upload New</h1>
-            <p className="text-gray-300">Upload new pictures to the gallery.</p>
-          </div>
+        <AddImages />
         );
       case "sort":
         return (
           <div>
             <h1 className="text-3xl font-bold text-green-400 mb-4">Sort Pictures</h1>
-            <p className="text-gray-300">Organize and sort your pictures.</p>
+            <p className="text-gray-300">Feature coming soon!</p>
           </div>
         );
-      case "settings":
+      case "change-password":
         return (
-          <div>
-            <h1 className="text-3xl font-bold text-green-400 mb-4">Change Password</h1>
-            <p className="text-gray-300">Update your account password.</p>
-          </div>
+           <ChangePassword />
         );
       default:
         return null;
@@ -89,8 +84,8 @@ const AdminDashboard = () => {
         } md:block w-full md:w-64 h-full md:h-screen bg-black bg-opacity-30 backdrop-blur-lg border-r border-gray-700 p-6 fixed md:relative z-50`}
       >
         <nav className="space-y-5 text-lg font-medium">
-          <button onClick={() => { setActiveSection("home"); setSidebarOpen(false); }} className="block w-full text-left hover:text-green-400">
-             All Pictures
+          <button onClick={() => { setActiveSection("gallery"); setSidebarOpen(false); }} className="block w-full text-left hover:text-green-400">
+             Gallery
           </button>
           <button onClick={() => { setActiveSection("upload"); setSidebarOpen(false); }} className="block w-full text-left hover:text-green-400">
             Upload New
@@ -98,7 +93,7 @@ const AdminDashboard = () => {
           <button onClick={() => { setActiveSection("sort"); setSidebarOpen(false); }} className="block w-full text-left hover:text-green-400">
             Sort Pictures
           </button>
-          <button onClick={() => { setActiveSection("settings"); setSidebarOpen(false); }} className="block w-full text-left hover:text-green-400">
+          <button onClick={() => { setActiveSection("change-password"); setSidebarOpen(false); }} className="block w-full text-left hover:text-green-400">
              Change Password
           </button>
           <button
