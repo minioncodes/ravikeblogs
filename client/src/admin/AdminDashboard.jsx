@@ -9,6 +9,7 @@ import {
   FiLock,
   FiLogOut,
 } from "react-icons/fi";
+import { motion, AnimatePresence } from "framer-motion";
 import Gallery from "./Gallery";
 import AddImages from "./AddImages";
 import ChangePassword from "./ChangePassword";
@@ -18,7 +19,6 @@ const AdminDashboard = () => {
   const [adminEmail, setAdminEmail] = useState("");
   const [activeSection, setActiveSection] = useState("gallery");
   const [sidebarOpen, setSidebarOpen] = useState(false);
-
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -68,97 +68,91 @@ const AdminDashboard = () => {
   }
 
   return (
-    <div className="min-h-screen font-[Inter] bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white">
- 
-      <div className="md:hidden flex items-center justify-between p-4 border-b border-gray-700 bg-black bg-opacity-40 backdrop-blur-lg sticky top-0 z-40">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white relative">
+      {/* Top Bar */}
+      <div className="flex items-center justify-between px-4 py-4 border-b border-gray-700 bg-black/40 backdrop-blur sticky top-0 z-50">
         <h2 className="text-xl font-bold text-green-400">Admin Panel</h2>
         <button
           onClick={() => setSidebarOpen(!sidebarOpen)}
-          className="text-white text-2xl"
+          className="text-white text-2xl focus:outline-none"
         >
           {sidebarOpen ? <FiX /> : <FiMenu />}
         </button>
       </div>
 
-      <div className="flex">
-    
-        <aside
-          className={`${
-            sidebarOpen ? "block" : "hidden"
-          } md:block w-full md:w-64 h-screen bg-black bg-opacity-30 backdrop-blur-md border-r border-gray-700 p-6 fixed md:relative z-50 top-16 md:top-0 overflow-y-auto`}
-        >
-          <nav className="space-y-4 text-[16px] font-medium">
-            <button
-              onClick={() => {
-                setActiveSection("gallery");
-                setSidebarOpen(false);
-              }}
-              className={`flex items-center gap-3 w-full text-left px-2 py-2 rounded-md transition-all duration-200 ${
-                activeSection === "gallery"
-                  ? "text-green-400 bg-white/10"
-                  : "text-white hover:text-green-400 hover:bg-white/10"
-              }`}
-            >
-              <FiImage /> Gallery
-            </button>
+      {/* Sidebar (Animated, shown on all screen sizes when toggled) */}
+      <AnimatePresence>
+        {sidebarOpen && (
+          <>
+            {/* Overlay for small screens */}
+            <motion.div
+              className="fixed inset-0 bg-black/50 z-40 md:hidden"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setSidebarOpen(false)}
+            />
 
-            <button
-              onClick={() => {
-                setActiveSection("upload");
-                setSidebarOpen(false);
-              }}
-              className={`flex items-center gap-3 w-full text-left px-2 py-2 rounded-md transition-all duration-200 ${
-                activeSection === "upload"
-                  ? "text-green-400 bg-white/10"
-                  : "text-white hover:text-green-400 hover:bg-white/10"
-              }`}
+            <motion.aside
+              initial={{ x: -300 }}
+              animate={{ x: 0 }}
+              exit={{ x: -300 }}
+              transition={{ type: "tween", duration: 0.3 }}
+              className="fixed top-0 left-0 h-full w-64 bg-black/60 backdrop-blur-md z-50 p-6 shadow-lg"
             >
-              <FiUpload /> Upload New
-            </button>
+              <Sidebar
+                activeSection={activeSection}
+                setActiveSection={(section) => {
+                  setActiveSection(section);
+                  setSidebarOpen(false);
+                }}
+                handleLogout={handleLogout}
+              />
+            </motion.aside>
+          </>
+        )}
+      </AnimatePresence>
 
-            <button
-              onClick={() => {
-                setActiveSection("sort");
-                setSidebarOpen(false);
-              }}
-              className={`flex items-center gap-3 w-full text-left px-2 py-2 rounded-md transition-all duration-200 ${
-                activeSection === "sort"
-                  ? "text-green-400 bg-white/10"
-                  : "text-white hover:text-green-400 hover:bg-white/10"
-              }`}
-            >
-              <FiSettings /> Sort Pictures
-            </button>
-
-            <button
-              onClick={() => {
-                setActiveSection("change-password");
-                setSidebarOpen(false);
-              }}
-              className={`flex items-center gap-3 w-full text-left px-2 py-2 rounded-md transition-all duration-200 ${
-                activeSection === "change-password"
-                  ? "text-green-400 bg-white/10"
-                  : "text-white hover:text-green-400 hover:bg-white/10"
-              }`}
-            >
-              <FiLock /> Change Password
-            </button>
-
-            <button
-              onClick={handleLogout}
-              className="flex items-center gap-3 w-full text-left text-red-500 hover:text-red-400 px-2 pt-6"
-            >
-              <FiLogOut /> Logout
-            </button>
-          </nav>
-        </aside>
-
-        
-        <main className="flex-1 p-6 pt-20 md:pt-6 md:ml-64 transition-all duration-300">
-          <div className="max-w-6xl mx-auto">{renderSection()}</div>
-        </main>
-      </div>
+      {/* Main Content */}
+      <main className="px-4 py-6 md:px-6 transition-all duration-300">
+        {renderSection()}
+      </main>
     </div>
+  );
+};
+
+// Sidebar component (used in all views)
+const Sidebar = ({ activeSection, setActiveSection, handleLogout }) => {
+  const items = [
+    { key: "gallery", icon: <FiImage />, label: "Gallery" },
+    { key: "upload", icon: <FiUpload />, label: "Upload New" },
+    { key: "sort", icon: <FiSettings />, label: "Sort Pictures" },
+    { key: "change-password", icon: <FiLock />, label: "Change Password" },
+  ];
+
+  return (
+    <nav className="space-y-4 text-[16px] font-medium">
+      {items.map((item) => (
+        <button
+          key={item.key}
+          onClick={() => setActiveSection(item.key)}
+          className={`flex items-center gap-3 w-full text-left px-2 py-2 rounded-md transition-all duration-200 ${
+            activeSection === item.key
+              ? "text-green-400 bg-white/10"
+              : "text-white hover:text-green-400 hover:bg-white/10"
+          }`}
+        >
+          {item.icon} {item.label}
+        </button>
+      ))}
+
+      <button
+        onClick={handleLogout}
+        className="flex items-center gap-3 w-full text-left text-red-500 hover:text-red-400 px-2 pt-6"
+      >
+        <FiLogOut /> Logout
+      </button>
+    </nav>
   );
 };
 

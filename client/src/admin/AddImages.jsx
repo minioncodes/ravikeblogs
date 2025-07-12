@@ -21,7 +21,6 @@ const AddImages = () => {
       const response = await axios.post('http://localhost:3000/api/image/upload', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
-          // 'Authorization': `token ${token}`,
         },
       });
 
@@ -36,68 +35,38 @@ const AddImages = () => {
   };
 
   return (
-    <div style={styles.container}>
-      <h2 style={styles.heading}>📤 Upload Image</h2>
+    <div className="  flex items-center justify-center px-4">
+      <div className="backdrop-blur-md bg-white/10 border border-white/20 shadow-xl p-8 rounded-2xl max-w-md w-full text-white">
+        <h2 className="text-3xl font-semibold mb-6 text-center">📤 Upload Your Image</h2>
 
-      <input type="file" accept="image/*" onChange={handleFileChange} style={styles.fileInput} />
+        <input
+          type="file"
+          accept="image/*"
+          onChange={handleFileChange}
+          className="block w-full text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700 cursor-pointer mb-4"
+        />
 
-      <button onClick={handleUpload} style={styles.button} disabled={loading}>
-        {loading ? 'Uploading...' : 'Upload'}
-      </button>
+        <button
+          onClick={handleUpload}
+          disabled={loading}
+          className="w-full py-3 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-bold rounded-lg transition duration-300"
+        >
+          {loading ? 'Uploading...' : 'Upload'}
+        </button>
 
-      {uploadedImageUrl && (
-        <div style={styles.preview}>
-          <p style={styles.previewText}>Preview:</p>
-          <img src={uploadedImageUrl} alt="Uploaded" style={styles.image} />
-        </div>
-      )}
+        {uploadedImageUrl && (
+          <div className="mt-6">
+            <p className="text-lg font-semibold mb-2">✨ Preview:</p>
+            <img
+              src={uploadedImageUrl}
+              alt="Uploaded"
+              className="w-full rounded-xl shadow-lg transition-transform duration-300 hover:scale-105"
+            />
+          </div>
+        )}
+      </div>
     </div>
   );
-};
-
-const styles = {
-  container: {
-    padding: '2rem',
-    maxWidth: '400px',
-    margin: '40px auto',
-    border: '1px solid #e0e0e0',
-    borderRadius: '12px',
-    backgroundColor: '#fdfdfd',
-    boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
-    textAlign: 'center',
-    fontFamily: 'sans-serif',
-  },
-  heading: {
-    marginBottom: '1.5rem',
-    color: '#333',
-  },
-  fileInput: {
-    marginBottom: '1rem',
-    cursor: 'pointer',
-  },
-  button: {
-    padding: '0.6rem 1.2rem',
-    backgroundColor: '#4CAF50',
-    color: '#fff',
-    border: 'none',
-    borderRadius: '6px',
-    cursor: 'pointer',
-    fontWeight: 'bold',
-    transition: 'background 0.3s',
-  },
-  preview: {
-    marginTop: '1.5rem',
-    textAlign: 'left',
-  },
-  previewText: {
-    marginBottom: '0.5rem',
-    fontWeight: '500',
-  },
-  image: {
-    width: '100%',
-    borderRadius: '8px',
-    boxShadow: '0 2px 6px rgba(0,0,0,0.1)',
-  },
 };
 
 export default AddImages;
