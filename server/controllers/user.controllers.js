@@ -72,3 +72,30 @@ export const usignin = async function (req, res) {
         return res.status(500).json({ msg: "Server error" });
     }
 };
+
+export const changePassword = async function (req, res) {
+    try {
+      const { oldPassword, newPassword,confirmPassowrd } = req.body;
+      const userId = req.user.id;
+      const user = await UserModel.findById(userId)
+      if(!user){
+        return res.status(404).json({msg: "user not found"})
+      }
+        const isPasswordCorrect = await bcrypt.compare(oldPassword, user.password);
+        if(! isPasswordCorrect){
+            return res.status(400).json({msg:"old password is incorrect"})
+        }
+        if(newPassword !== confirmPassowrd){
+            return res.status(400).json({msg:"new password and old password does not match"})
+        }
+        const hashedPassword= await bycrypt.hash(newPassword,10)
+        user.password = hashedPassword;
+        await user.save();
+        return res.status(200).json({ msg: "Password changed successfully" })
+
+    } catch (error) {
+        console.error("Error in changing password:", error);
+        return res.status(500).json({ msg: "Server error" });
+        
+    }
+}
