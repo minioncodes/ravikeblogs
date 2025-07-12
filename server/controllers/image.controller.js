@@ -1,8 +1,10 @@
 import ImageModel from "../models/img.schema.js";
 import multer from "multer";
-import { storage } from "../config/cloudinary.js";
+import { cloudinary, storage } from "../config/cloudinary.js";
+import express from "express";
 
 const upload = multer({ storage });
+const Express = express();
 export const uploadImage = async function (req, res) {
     try {
         const { url, name, size } = req.body;
@@ -55,15 +57,10 @@ export const getSingleImage = async function (req, res) {
 export const uploadImageFromPC = async function (req, res) {
     console.log("upload image from pc got called")
     try {
-        // const userId = req.user.id;
-        // console.log("user id = ", userId);
-
         if (!req.file || !req.file.path) {
             return res.status(400).json({ message: "sorry the file is required" });
         }
-
         const image = await ImageModel.create({
-            // user: userId,
             url: req.file.path,
             name: req.file.originalname,
             size: req.file.size,
@@ -73,6 +70,40 @@ export const uploadImageFromPC = async function (req, res) {
     } catch (error) {
         console.error("err uploadin the image = ", error);
         return res.status(500).json({ success: false, message: "server err" });
+    }
+};
+
+export const uploadImagesFromPc = async (req, res) => {
+    console.log("hello from the upload images from pc");
+    try {
+        const files = req.files;
+        console.log(files);
+        if (!files || !files.length == 0) {
+            return res.status(400).json({ message: "No files uploaded." });
+        }
+        const uploadResult = [];
+        const uploadPromises = files.map(file => {
+            return new Promise((resolve, reject) => {
+                const stream = cloudinary.uploader.upload_stream(
+                    { resource_type: "image" },
+                    (err, result) => {
+                        if (err || !result) return reject(err);
+                        uploadResult.push({
+                            url: result.secure_url,
+                            name: file.originalname,
+                            size: file.size
+                        });
+                        resolve(result);
+                    }
+                )
+                stream.end(file.buffer)
+            })
+        })
+        await Promise.all(uploadPromises)
+        await ImageModel.insertMany(uploadResult);
+    } catch (err) {
+        console.error("err uploading images:", err);
+        return res.status(500).json({ success: false, message: err.message });
     }
 };
 
