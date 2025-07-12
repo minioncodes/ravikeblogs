@@ -9,8 +9,7 @@ export const userMiddleware = async (req, res, next) => {
         const secret_key = process.env.JWT_SECRET;
         const decoded = jwt.verify(token, secret_key);
         req.user = {
-            id: decoded.id,
-            hotelid: decoded.hotelid
+            id: decoded.id
         };
         next();
     } catch (error) {
