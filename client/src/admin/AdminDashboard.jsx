@@ -80,7 +80,6 @@ const AdminDashboard = () => {
         </button>
       </div>
 
-      {/* Sidebar (Animated, shown on all screen sizes when toggled) */}
       <AnimatePresence>
         {sidebarOpen && (
           <>
@@ -121,7 +120,7 @@ const AdminDashboard = () => {
   );
 };
 
-// Sidebar component (used in all views)
+
 const Sidebar = ({ activeSection, setActiveSection, handleLogout }) => {
   const items = [
     { key: "gallery", icon: <FiImage />, label: "Gallery" },
