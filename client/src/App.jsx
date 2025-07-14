@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar";
 import About from "./About";
 import AdminAuth from "./admin/AdminAuth";
 import AdminDashboard from "./admin/AdminDashboard";
+import AddImages from "./admin/AddImages";
 
 function AppWrapper() {
   const location = useLocation();
@@ -13,10 +14,10 @@ function AppWrapper() {
 
   return (
     <>
-      {!hideNavbarRoutes.includes(location.pathname) && <Navbar />}
+      {/* {!hideNavbarRoutes.includes(location.pathname) && <Navbar />} */}
       <Routes>
         <Route path="/" element={<Home />} />
-        {/* <Route path="/upload" element={<ImageUploadTest />} /> */}
+        <Route path="/upload" element={<AddImages />} />
         <Route path="/about" element={<About />} />
         <Route path="/admin" element={<AdminAuth />} />
         <Route path="/admin/dashboard" element={<AdminDashboard />} />

@@ -1,72 +1,78 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState } from "react";
 
-const AddImages = () => {
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [uploadedImageUrl, setUploadedImageUrl] = useState('');
-  const [loading, setLoading] = useState(false);
+export default function AddImages() {
+    const [selectedFiles, setSelectedFiles] = useState([]);
+    const [uploading, setUploading] = useState(false);
+    const [responseData, setResponseData] = useState(null);
 
-  const handleFileChange = (e) => {
-    setSelectedFile(e.target.files[0]);
-  };
+    const handleFileChange = (e) => {
+        setSelectedFiles([...e.target.files]);
+    };
 
-  const handleUpload = async () => {
-    if (!selectedFile) return alert("Please select a file");
+    const handleUpload = async (e) => {
+        e.preventDefault();
+        if (!selectedFiles.length) {
+            alert("Please select images first");
+            return;
+        }
 
-    const formData = new FormData();
-    formData.append('image', selectedFile);
+        const formData = new FormData();
+        selectedFiles.forEach((file) => formData.append("images", file));
 
-    try {
-      setLoading(true);
-      const response = await axios.post('http://localhost:3000/api/image/upload', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
+        setUploading(true);
 
-      setUploadedImageUrl(response.data.image.url);
-      alert("Upload successful!");
-    } catch (err) {
-      console.error('Upload error:', err);
-      alert("Upload failed!");
-    } finally {
-      setLoading(false);
-    }
-  };
+        try {
+            const res = await fetch('http://localhost:3000/api/image/uploadmany', {
+                method: "POST",
+                body: formData,
+            });
 
-  return (
-    <div className="  flex items-center justify-center px-4">
-      <div className="backdrop-blur-md bg-white/10 border border-white/20 shadow-xl p-8 rounded-2xl max-w-md w-full text-white">
-        <h2 className="text-3xl font-semibold mb-6 text-center">📤 Upload Your Image</h2>
+            const data = await res.json();
+            setResponseData(data);
+            setSelectedFiles([]);
+        } catch (err) {
+            console.log("Upload failed:", err.message);
+        } finally {
+            setUploading(false);
+        }
+    };
 
-        <input
-          type="file"
-          accept="image/*"
-          onChange={handleFileChange}
-          className="block w-full text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700 cursor-pointer mb-4"
-        />
+    return (
+        <div className="max-w-lg mx-auto p-4 mt-10 border rounded-xl shadow-md bg-white">
+            <h2 className="text-xl font-bold mb-4 text-center">Upload Images</h2>
 
-        <button
-          onClick={handleUpload}
-          disabled={loading}
-          className="w-full py-3 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-bold rounded-lg transition duration-300"
-        >
-          {loading ? 'Uploading...' : 'Upload'}
-        </button>
+            <form onSubmit={handleUpload} className="space-y-4">
+                <input
+                    type="file"
+                    multiple
+                    accept="image/*"
+                    onChange={handleFileChange}
+                    className="w-full p-2 border rounded"
+                />
 
-        {uploadedImageUrl && (
-          <div className="mt-6">
-            <p className="text-lg font-semibold mb-2">✨ Preview:</p>
-            <img
-              src={uploadedImageUrl}
-              alt="Uploaded"
-              className="w-full rounded-xl shadow-lg transition-transform duration-300 hover:scale-105"
-            />
-          </div>
-        )}
-      </div>
-    </div>
-  );
+                <button
+                    type="submit"
+                    disabled={uploading}
+                    className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded"
+                >
+                    {uploading ? "Uploading..." : "Upload"}
+                </button>
+            </form>
+
+            {responseData?.images && (
+                <div className="mt-6">
+                    <h3 className="text-lg font-semibold mb-2">Uploaded Images:</h3>
+                    <div className="grid grid-cols-2 gap-4">
+                        {responseData.images.map((img, index) => (
+                            <div key={index} className="border rounded p-2">
+                                <img src={img.url} alt={img.name} className="w-full h-auto" />
+                                <p className="text-sm mt-1 break-all">{img.name}</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            )}
+        </div>
+    );
 };
 
-export default AddImages;
