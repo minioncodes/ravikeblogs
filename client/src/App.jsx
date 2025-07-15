@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar";
 import About from "./About";
 import AdminAuth from "./admin/AdminAuth";
 import AdminDashboard from "./admin/AdminDashboard";
+import WorkGallery from "./WorkGallery";
 
 function AppWrapper() {
   const location = useLocation();
@@ -20,6 +21,7 @@ function AppWrapper() {
         <Route path="/about" element={<About />} />
         <Route path="/admin" element={<AdminAuth />} />
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        <Route path="/user-gallery" element={<WorkGallery />} />
       </Routes>
     </>
   );

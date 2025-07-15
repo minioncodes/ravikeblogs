@@ -52,7 +52,7 @@ const Home = () => {
                 )}
                 {currentIndex === 1 && (
                     <Link
-                        to="/work"
+                        to="/user-gallery"
                         className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white px-6 py-3 md:px-12 md:py-5 rounded-lg text-lg md:text-7xl font-semibold shadow-lg"
                         style={{ pointerEvents: "auto", zIndex: 2 }}
                     >
