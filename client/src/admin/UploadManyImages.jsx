@@ -15,7 +15,6 @@ export default function UploadImages() {
             alert("Please select images first");
             return;
         }
-
         const formData = new FormData();
         selectedFiles.forEach((file) => formData.append("images", file));
 
@@ -27,7 +26,6 @@ export default function UploadImages() {
                 body: formData,
                 headers: {
                     'Content-Type': 'multipart/form-data',
-                    // 'Authorization': `token ${token}`,
                 },
             });
 

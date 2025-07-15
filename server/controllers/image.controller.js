@@ -73,36 +73,29 @@ export const uploadImageFromPC = async function (req, res) {
     }
 };
 
+
 export const uploadImagesFromPc = async (req, res) => {
     console.log("hello from the upload images from pc");
     try {
         const files = req.files;
-        console.log(files);
-        if (!files || !files.length == 0) {
+        console.log("uploaded via cloudinary-storage: ", files);
+
+        if (!files || files.length === 0) {
             return res.status(400).json({ message: "No files uploaded." });
         }
-        const uploadResult = [];
-        const uploadPromises = files.map(file => {
-            return new Promise((resolve, reject) => {
-                const stream = cloudinary.uploader.upload_stream(
-                    { resource_type: "image" },
-                    (err, result) => {
-                        if (err || !result) return reject(err);
-                        uploadResult.push({
-                            url: result.secure_url,
-                            name: file.originalname,
-                            size: file.size
-                        });
-                        resolve(result);
-                    }
-                )
-                stream.end(file.buffer)
-            })
-        })
-        await Promise.all(uploadPromises)
+
+        const uploadResult = files.map((file) => ({
+            url: file.path,              // this is cloudinary secure_url
+            name: file.originalname,
+            size: file.size
+        }));
+
+        // save to DB
         await ImageModel.insertMany(uploadResult);
+
+        return res.status(201).json({ success: true, images: uploadResult });
     } catch (err) {
-        console.error("err uploading images:", err);
+        console.error("Error uploading images:", err);
         return res.status(500).json({ success: false, message: err.message });
     }
 };
