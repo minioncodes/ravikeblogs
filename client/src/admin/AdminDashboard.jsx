@@ -11,7 +11,6 @@ import {
 } from "react-icons/fi";
 import { motion, AnimatePresence } from "framer-motion";
 import Gallery from "./Gallery";
-import AddImages from "./AddImages";
 import ChangePassword from "./ChangePassword";
 import UploadImages from "./UploadManyImages";
 
