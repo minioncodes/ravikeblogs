@@ -13,6 +13,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Gallery from "./Gallery";
 import AddImages from "./AddImages";
 import ChangePassword from "./ChangePassword";
+import UploadImages from "./UploadManyImages";
 
 const AdminDashboard = () => {
   const [loading, setLoading] = useState(true);
@@ -44,7 +45,7 @@ const AdminDashboard = () => {
       case "gallery":
         return <Gallery />;
       case "upload":
-        return <AddImages />;
+        return <UploadImages />;
       case "sort":
         return (
           <div>

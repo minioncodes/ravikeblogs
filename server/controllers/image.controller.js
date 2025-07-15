@@ -73,30 +73,32 @@ export const uploadImageFromPC = async function (req, res) {
     }
 };
 
-
 export const uploadImagesFromPc = async (req, res) => {
     console.log("hello from the upload images from pc");
     try {
+        let { customNames, category, filters } = req.body;
         const files = req.files;
-        console.log("uploaded via cloudinary-storage: ", files);
-
+        customNames = Array.isArray(customNames) ? customNames : [customNames];
+        const parsedFilters = typeof filters === "string"
+            ? filters.split(",").map(f => f.trim())
+            : [];
         if (!files || files.length === 0) {
             return res.status(400).json({ message: "No files uploaded." });
         }
-
-        const uploadResult = files.map((file) => ({
-            url: file.path,              // this is cloudinary secure_url
-            name: file.originalname,
-            size: file.size
+        const uploadResult = files.map((file, index) => ({
+            url: file.path,
+            name: customNames[index] || file.originalname,
+            size: file.size,
+            category: category || "",
+            filters: parsedFilters,
         }));
-
-        // save to DB
         await ImageModel.insertMany(uploadResult);
-
         return res.status(201).json({ success: true, images: uploadResult });
     } catch (err) {
         console.error("Error uploading images:", err);
         return res.status(500).json({ success: false, message: err.message });
     }
 };
+
+
 

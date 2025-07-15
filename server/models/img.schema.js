@@ -14,7 +14,15 @@ const ImageSchema = new mongoose.Schema({
         type: String
     },
     size: {
-        type: Number, 
+        type: Number,
+    },
+    category: {
+        type: String, 
+        required: false
+    },
+    filters: {
+        type: [String],
+        default: []
     },
 })
 const ImageModel = mongoose.model('Image', ImageSchema);

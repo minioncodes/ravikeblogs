@@ -14,10 +14,9 @@ function AppWrapper() {
 
   return (
     <>
-      {/* {!hideNavbarRoutes.includes(location.pathname) && <Navbar />} */}
+      {!hideNavbarRoutes.includes(location.pathname) && <Navbar />}
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/upload" element={<AddImages />} />
         <Route path="/about" element={<About />} />
         <Route path="/admin" element={<AdminAuth />} />
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
