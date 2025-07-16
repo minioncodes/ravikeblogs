@@ -69,21 +69,31 @@ const AdminDashboard = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white relative">
-   
-      <div className="flex items-center justify-between px-4 py-4 border-b border-gray-700 bg-black/40 backdrop-blur sticky top-0 z-50">
-        <h2 className="text-xl font-bold text-green-400">Admin Panel</h2>
-        <button
-          onClick={() => setSidebarOpen(!sidebarOpen)}
-          className="text-white text-2xl focus:outline-none"
-        >
-          {sidebarOpen ? <FiX /> : <FiMenu />}
-        </button>
-      </div>
+    
+      <motion.div
+        className="sticky top-0 z-50 bg-gradient-to-r from-black via-gray-900 to-black border-b border-pink-600 shadow-lg"
+        initial={{ y: -100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ type: "spring", stiffness: 70, duration: 0.6 }}
+      >
+        <div className="flex items-center justify-between px-6 py-5">
+          <h1 className="text-3xl font-extrabold text-pink-400 tracking-wide drop-shadow-sm">
+            🛠️ Admin Dashboard
+          </h1>
+          <button
+            onClick={() => setSidebarOpen(!sidebarOpen)}
+            className="text-white text-3xl hover:text-pink-400 transition-colors duration-200 focus:outline-none"
+          >
+            {sidebarOpen ? <FiX /> : <FiMenu />}
+          </button>
+        </div>
+      </motion.div>
 
+    
       <AnimatePresence>
         {sidebarOpen && (
           <>
-            {/* Overlay for small screens */}
+       
             <motion.div
               className="fixed inset-0 bg-black/50 z-40 md:hidden"
               initial={{ opacity: 0 }}
@@ -91,7 +101,7 @@ const AdminDashboard = () => {
               exit={{ opacity: 0 }}
               onClick={() => setSidebarOpen(false)}
             />
-
+            
             <motion.aside
               initial={{ x: -300 }}
               animate={{ x: 0 }}
@@ -111,13 +121,14 @@ const AdminDashboard = () => {
           </>
         )}
       </AnimatePresence>
+
+
       <main className="px-4 py-6 md:px-6 transition-all duration-300">
         {renderSection()}
       </main>
     </div>
   );
 };
-
 
 const Sidebar = ({ activeSection, setActiveSection, handleLogout }) => {
   const items = [
