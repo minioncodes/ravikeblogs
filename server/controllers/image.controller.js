@@ -27,6 +27,8 @@ export const uploadImage = async function (req, res) {
 };
 export const getUserImages = async function (req, res) {
     try {
+        
+
         const images = await ImageModel.find().sort({ createdAt: -1 });
 
         return res.status(200).json({ success: true, images });
@@ -85,8 +87,10 @@ export const uploadImagesFromPc = async (req, res) => {
 };
 export const getImagesByCategory = async (req, res) => {
     try {
+        
         const { category } = req.query;
         const filter = {
+            
             ...(category && { category }),
         };
         const images = await ImageModel.find(filter).sort({ createdAt: -1 });
