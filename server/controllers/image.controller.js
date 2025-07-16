@@ -58,8 +58,8 @@ export const getSingleImage = async function (req, res) {
 export const uploadImagesFromPc = async (req, res) => {
     console.log("hello from the upload images from pc");
     try {
-        const user = req.user.id
-        console.log("user from the upload images from pc = ", user);
+        const userId = req.user.id
+        console.log("user from the upload images from pc = ", userId);
         let { customNames, category, filters } = req.body;
         const files = req.files;
         customNames = Array.isArray(customNames) ? customNames : [customNames];
@@ -71,14 +71,14 @@ export const uploadImagesFromPc = async (req, res) => {
         }
         const uploadResult = files.map((file, index) => ({
             url: file.path,
-            user: user,
+            user: userId,
             name: customNames[index] || file.originalname,
             size: file.size,
             category: category[index] || "",
             filters: parsedFilters,
         }));
-        await ImageModel.insertMany(uploadResult);
         console.log("uploaded result = ", uploadResult);
+        await ImageModel.insertMany(uploadResult);
         return res.status(201).json({ success: true, images: uploadResult });
     } catch (err) {
         console.error("Error uploading images:", err);
@@ -89,10 +89,9 @@ export const getImagesByCategory = async (req, res) => {
     try {
         const userId = req.user.id;
         const { category } = req.query;
-
         const filter = {
             user: userId,
-            ...(category && { category }), 
+            ...(category && { category }),
         };
         const images = await ImageModel.find(filter).sort({ createdAt: -1 });
 
