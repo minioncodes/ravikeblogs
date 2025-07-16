@@ -54,29 +54,13 @@ export const getSingleImage = async function (req, res) {
         return res.status(500).json({ msg: e.message })
     }
 }
-export const uploadImageFromPC = async function (req, res) {
-    console.log("upload image from pc got called")
-    try {
-        if (!req.file || !req.file.path) {
-            return res.status(400).json({ message: "sorry the file is required" });
-        }
-        const image = await ImageModel.create({
-            url: req.file.path,
-            name: req.file.originalname,
-            size: req.file.size,
-        });
-
-        return res.status(201).json({ success: true, image });
-    } catch (error) {
-        console.error("err uploadin the image = ", error);
-        return res.status(500).json({ success: false, message: "server err" });
-    }
-};
 
 export const uploadImagesFromPc = async (req, res) => {
     console.log("hello from the upload images from pc");
     try {
-        let { customNames, categories, filters } = req.body;
+        const user = req.user.id
+        console.log("user from the upload images from pc = ", user);
+        let { customNames, category, filters } = req.body;
         const files = req.files;
         customNames = Array.isArray(customNames) ? customNames : [customNames];
         const parsedFilters = typeof filters === "string"
@@ -87,19 +71,39 @@ export const uploadImagesFromPc = async (req, res) => {
         }
         const uploadResult = files.map((file, index) => ({
             url: file.path,
+            user: user,
             name: customNames[index] || file.originalname,
             size: file.size,
-            category: categories[index] || "",
+            category: category[index] || "",
             filters: parsedFilters,
         }));
         await ImageModel.insertMany(uploadResult);
-        console.log("uploaded result = ",uploadResult);
+        console.log("uploaded result = ", uploadResult);
         return res.status(201).json({ success: true, images: uploadResult });
     } catch (err) {
         console.error("Error uploading images:", err);
         return res.status(500).json({ success: false, message: err.message });
     }
 };
+export const getImagesByCategory = async (req, res) => {
+    try {
+        const userId = req.user.id;
+        const { category } = req.query;
+
+        const filter = {
+            user: userId,
+            ...(category && { category }), 
+        };
+        const images = await ImageModel.find(filter).sort({ createdAt: -1 });
+
+        return res.status(200).json({ success: true, images });
+    } catch (err) {
+        console.error("Error fetching images by category:", err);
+        return res.status(500).json({ success: false, message: err.message });
+    }
+};
+
+
 
 
 

@@ -29,14 +29,23 @@ export default function UploadImages() {
         selectedFiles.forEach(({ file, customName, category, filters }) => {
             formData.append("images", file);
             formData.append("customNames[]", customName);
-            formData.append("categories[]", category);
+            formData.append("category[]", category);
             formData.append("filters[]", filters);
         });
 
         try {
+            const token = localStorage.getItem("access_token");
+            console.log("token from the frontend = ", token);
+            if (!token) {
+                alert("You must be logged in to upload a images!");
+                return;
+            }
             const res = await fetch("http://localhost:3000/api/image/uploadmany", {
                 method: "POST",
                 body: formData,
+                headers: {
+                    authorization: `Bearer ${token}`,
+                },
             });
 
             const data = await res.json();

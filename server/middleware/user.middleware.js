@@ -2,6 +2,7 @@ import jwt from 'jsonwebtoken'
 export const userMiddleware = async (req, res, next) => {
     try {
         const token = req.headers.authorization?.split(" ")[1];
+        console.log("token from the middleware = ", token)
         if (!token) {
             return res.status(401).json({ msg: "Token is missing" });
         }
