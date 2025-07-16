@@ -69,7 +69,7 @@ const AdminDashboard = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white relative">
-      {/* 🔥 Animated Topbar */}
+    
       <motion.div
         className="sticky top-0 z-50 bg-gradient-to-r from-black via-gray-900 to-black border-b border-pink-600 shadow-lg"
         initial={{ y: -100, opacity: 0 }}
@@ -89,11 +89,11 @@ const AdminDashboard = () => {
         </div>
       </motion.div>
 
-      {/* Sidebar */}
+    
       <AnimatePresence>
         {sidebarOpen && (
           <>
-            {/* Overlay for mobile */}
+       
             <motion.div
               className="fixed inset-0 bg-black/50 z-40 md:hidden"
               initial={{ opacity: 0 }}
@@ -101,7 +101,7 @@ const AdminDashboard = () => {
               exit={{ opacity: 0 }}
               onClick={() => setSidebarOpen(false)}
             />
-            {/* Sidebar menu */}
+            
             <motion.aside
               initial={{ x: -300 }}
               animate={{ x: 0 }}
@@ -122,7 +122,7 @@ const AdminDashboard = () => {
         )}
       </AnimatePresence>
 
-      {/* Main Content */}
+
       <main className="px-4 py-6 md:px-6 transition-all duration-300">
         {renderSection()}
       </main>
