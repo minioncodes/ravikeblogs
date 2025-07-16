@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { UploadCloud } from "lucide-react";
+import { FiUploadCloud } from "react-icons/fi";
 
 export default function UploadImages() {
     const [selectedFiles, setSelectedFiles] = useState([]);
@@ -49,7 +49,7 @@ export default function UploadImages() {
         <div className="min-h-screen flex items-center justify-center p-6">
             <div className="w-full max-w-3xl rounded-3xl shadow-2xl p-8 space-y-8">
                 <div className="text-center">
-                    <UploadCloud className="mx-auto mb-4 text-pink-600 w-12 h-12" />
+                    <FiUploadCloud className="mx-auto mb-4 text-pink-600 w-12 h-12" />
                     <h2 className="text-3xl font-extrabold text-black">Upload Your Images</h2>
                     <p className="text-md text-black mt-1">Add name, category & filters per image 🚀</p>
                 </div>
@@ -123,7 +123,7 @@ export default function UploadImages() {
                         type="submit"
                         className="w-full flex justify-center items-center gap-2 bg-gradient-to-r from-pink-500 to-purple-500 text-white font-bold py-3 rounded-xl"
                     >
-                        <UploadCloud className="w-5 h-5" />
+                        <FiUploadCloud className="w-5 h-5" />
                         Upload The Images
                     </button>
                 </form>
