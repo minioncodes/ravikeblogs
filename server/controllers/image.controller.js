@@ -27,10 +27,7 @@ export const uploadImage = async function (req, res) {
 };
 export const getUserImages = async function (req, res) {
     try {
-        
-
         const images = await ImageModel.find().sort({ createdAt: -1 });
-
         return res.status(200).json({ success: true, images });
     } catch (error) {
         console.error("Error fetching images:", error);
@@ -87,10 +84,10 @@ export const uploadImagesFromPc = async (req, res) => {
 };
 export const getImagesByCategory = async (req, res) => {
     try {
-        
+
         const { category } = req.query;
         const filter = {
-            
+
             ...(category && { category }),
         };
         const images = await ImageModel.find(filter).sort({ createdAt: -1 });
@@ -101,6 +98,21 @@ export const getImagesByCategory = async (req, res) => {
         return res.status(500).json({ success: false, message: err.message });
     }
 };
+export const deleteImage = async (req, res) => {
+    try {
+        const userId = req.user.id;
+        const { id } = req.params;
+        const image = await ImageModel.findOne({ _id: id, user: userId });
+        if (!image) {
+            return res.status(404).json({ success: false, message: "unauthorizedddddd" });
+        }
+        await ImageModel.findByIdAndDelete(id);
+        return res.status(200).json({ success: true, message: "suuuuuucccesss" });
+    } catch (e) {
+        console.log("err from delete imgg", error);
+        return res.status(500).json({ success: false, message: error.message });
+    }
+}
 
 
 
