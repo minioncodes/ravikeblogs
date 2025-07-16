@@ -76,7 +76,7 @@ export const uploadImageFromPC = async function (req, res) {
 export const uploadImagesFromPc = async (req, res) => {
     console.log("hello from the upload images from pc");
     try {
-        let { customNames, category, filters } = req.body;
+        let { customNames, categories, filters } = req.body;
         const files = req.files;
         customNames = Array.isArray(customNames) ? customNames : [customNames];
         const parsedFilters = typeof filters === "string"
@@ -89,10 +89,11 @@ export const uploadImagesFromPc = async (req, res) => {
             url: file.path,
             name: customNames[index] || file.originalname,
             size: file.size,
-            category: category || "",
+            category: categories[index] || "",
             filters: parsedFilters,
         }));
         await ImageModel.insertMany(uploadResult);
+        console.log("uploaded result = ",uploadResult);
         return res.status(201).json({ success: true, images: uploadResult });
     } catch (err) {
         console.error("Error uploading images:", err);

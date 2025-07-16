@@ -111,8 +111,6 @@ const AdminDashboard = () => {
           </>
         )}
       </AnimatePresence>
-
-      {/* Main Content */}
       <main className="px-4 py-6 md:px-6 transition-all duration-300">
         {renderSection()}
       </main>
