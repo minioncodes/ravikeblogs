@@ -1,17 +1,15 @@
-import { useState } from "react";
-import { FiMenu, FiX } from "react-icons/fi";
+import React from "react";
 import ravi from "../assets/ravi.svg";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
-    // Hamburger menu state and logic removed
 
     return (
         <>
             <nav
                 style={{ fontFamily: "'Poppins', sans-serif" }}
                 className={`
-                    fixed top-6 left-1/2 transform -translate-x-1/2
+                    fixed top-2 left-1/2 transform -translate-x-1/2
                     w-[90vw] md:w-[75vw]
                     bg-transparent
                     backdrop-blur-xl

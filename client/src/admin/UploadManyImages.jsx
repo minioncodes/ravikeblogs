@@ -77,7 +77,7 @@ export default function UploadImages() {
                             className="block w-full text-base text-pink-300 font-medium bg-white/10 border border-pink-400 rounded-lg cursor-pointer px-4 py-2 focus:outline-none focus:ring-2 focus:ring-pink-400"
                         />
                         <p className="text-sm text-gray-300 mt-2">
-                            Supported formats: JPG, PNG, WEBP • Max size: 5MB
+                            Supported formats: JPG, PNG, WEBP 
                         </p>
                     </div>
 
