@@ -5,6 +5,7 @@ import About from "./About";
 import AdminAuth from "./admin/AdminAuth";
 import AdminDashboard from "./admin/AdminDashboard";
 import WorkGallery from "./WorkGallery";
+import AddImages from "./admin/AddImages";
 
 function AppWrapper() {
   const location = useLocation();

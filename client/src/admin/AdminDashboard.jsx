@@ -69,7 +69,7 @@ const AdminDashboard = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white relative">
-      {/* Top Bar */}
+   
       <div className="flex items-center justify-between px-4 py-4 border-b border-gray-700 bg-black/40 backdrop-blur sticky top-0 z-50">
         <h2 className="text-xl font-bold text-green-400">Admin Panel</h2>
         <button
