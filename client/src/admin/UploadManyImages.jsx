@@ -15,6 +15,7 @@ export default function UploadImages() {
     };
 
     const handleChange = (index, key, value) => {
+        console.log(`Changing ${key} at index ${index} to:`, value);
         const updated = [...selectedFiles];
         updated[index][key] = value;
         setSelectedFiles(updated);

@@ -16,7 +16,7 @@ const ImageSchema = new mongoose.Schema({
     size: {
         type: Number,
     },
-    category: {
+    categories: {
         type: String, 
         required: false
     },
