@@ -2,134 +2,118 @@ import React from "react";
 import { motion } from "framer-motion";
 
 const profileImg =
-    "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=facearea&w=400&h=400&facepad=2";
+  "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=facearea&w=400&h=400&facepad=2";
 
-const containerVariants = {
-    hidden: { opacity: 0, y: 40 },
-    visible: { opacity: 1, y: 0, transition: { staggerChildren: 0.15, when: "beforeChildren" } },
+const fadeIn = {
+  hidden: { opacity: 0, y: 30 },
+  visible: (i = 1) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      delay: i * 0.2,
+      duration: 0.6,
+      ease: "easeOut",
+    },
+  }),
 };
 
-const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.7, type: "spring" } },
-};
-
-const About = () => (
-    <motion.div
-        initial="hidden"
-        animate="visible"
-        variants={containerVariants}
-        style={{
-            minHeight: "100vh",
-            width: "100vw",
-            margin: 0,
-            padding: 0,
-            display: "flex",
-            alignItems: "flex-start",
-            justifyContent: "center",
-            background: "transparent",
-            marginTop: "10%",
-        }}
-    >
+const About = () => {
+  return (
+    <div className="text-white font-sans  bg-gradient-to-br from-gray-900 via-gray-800 to-black">
+  
+      <section className="flex items-center justify-center px-4 py-16">
         <motion.div
-            variants={itemVariants}
-            style={{
-                width: "100%",
-                maxWidth: 900,
-                margin: "40px 16px",
-                padding: 40,
-                background: "#fff",
-                borderRadius: 24,
-              
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-            }}
+          variants={fadeIn}
+          initial="hidden"
+          animate="visible"
+          className="flex flex-col md:flex-row items-center gap-8 max-w-5xl mt-15 w-full"
         >
-          
-            <motion.div
-                variants={itemVariants}
-                style={{
-                    display: "flex",
-                    alignItems: "center",
-                    marginBottom: 40,
-                    width: "100%",
-                    justifyContent: "center",
-                    flexWrap: "wrap",
-                }}
-            >
-                <motion.img
-                    variants={itemVariants}
-                    src={profileImg}
-                    alt="Ravi Profile"
-                    style={{
-                        width: 160,
-                        height: 160,
-                        borderRadius: "50%",
-                        objectFit: "cover",
-                        marginRight: 40,
-                        border: "4px solid #4f8cff",
-                        boxShadow: "0 4px 16px rgba(79,140,255,0.15)",
-                        marginBottom: 16,
-                    }}
-                />
-                <motion.div variants={itemVariants}>
-                    <h1 style={{ marginBottom: 12, fontSize: 38, fontWeight: 800, color: "#222" }}>
-                        Ravi Ke Vlog
-                    </h1>
-                    <p style={{ margin: 0, fontWeight: "bold", fontSize: 22, color: "#4f8cff" }}>
-                        Blogger & Vlogger
-                    </p>
-                    <p style={{ margin: 0, fontSize: 18, color: "#555" }}>📍 India</p>
-                    <p style={{ margin: 0, fontSize: 18, color: "#555" }}>
-                        Interests: Travel, Technology, Storytelling, Food, Photography
-                    </p>
-                </motion.div>
-            </motion.div>
-
-            {/* Detailing Form Section */}
-            <motion.dl variants={itemVariants} style={{ width: "100%", textAlign: "left", fontSize: 20, color: "#333" }}>
-                <dt style={{ fontWeight: "bold", color: "#4f8cff", fontSize: 26, marginBottom: 8 }}>About Ravi</dt>
-                <dd style={{ marginBottom: 20 }}>
-                    Hi, I'm Ravi! I'm passionate about vlogging, storytelling, and connecting with people. Through this blog, I hope to inspire, entertain, and inform readers from all walks of life.
-                    My journey started with a simple camera and a dream to share my experiences with the world.
-                </dd>
-                <dt style={{ fontWeight: "bold", color: "#4f8cff", fontSize: 26, marginBottom: 8 }}>Journey</dt>
-                <dd style={{ marginBottom: 20 }}>
-                    Over the years, I've traveled across India, explored hidden gems, tasted amazing food, and met incredible people. My love for technology and photography helps me capture and share these moments in creative ways.
-                </dd>
-                <dt style={{ fontWeight: "bold", color: "#4f8cff", fontSize: 26, marginBottom: 8 }}>About Ravi Ke Vlog</dt>
-                <dd style={{ marginBottom: 20 }}>
-                    <strong>Ravi Ke Vlog</strong> is a personal blog where I share my experiences, stories, and insights from daily life, travel, technology, and more. Whether you're here to read about new adventures, learn something new, or just have fun, there’s something for everyone.
-                </dd>
-                <dt style={{ fontWeight: "bold", color: "#4f8cff", fontSize: 26, marginBottom: 8 }}>Join Me</dt>
-                <dd style={{ marginBottom: 20 }}>
-                    Join me as I explore new destinations, review gadgets, share travel tips, and tell stories that matter. Thank you for visiting and being a part of this journey!
-                </dd>
-                <dd>
-                    <a
-                        href="https://www.youtube.com/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        style={{
-                            display: "inline-block",
-                            background: "#4f8cff",
-                            color: "#fff",
-                            padding: "14px 36px",
-                            borderRadius: 32,
-                            fontSize: 20,
-                            fontWeight: 700,
-                            textDecoration: "none",
-                            boxShadow: "0 2px 8px rgba(79,140,255,0.18)",
-                            transition: "background 0.2s",
-                        }}
-                    >
-                        Visit My YouTube Channel
-                    </a>
-                </dd>
-            </motion.dl>
+          <img
+            src={profileImg}
+            alt="Ravi"
+            className="w-60 h-40 top-6 rounded-full border-4 border-pink-500 shadow-lg object-cover"
+          />
+          <div className="text-center md:text-left">
+            <h1 className="text-4xl font-extrabold text-pink-400 mb-2">
+              Ravi Ke Vlog
+            </h1>
+            <p className="text-xl font-semibold text-pink-200">Blogger & Vlogger</p>
+            <p className="text-gray-300">📍 India</p>
+            <p className="text-gray-400 mt-1">
+              Interests: Travel, Technology, Storytelling, Food, Photography
+            </p>
+          </div>
         </motion.div>
-    </motion.div>
-);
+      </section>
+
+   
+      <section className=" px-6 py-16">
+        <motion.div
+          variants={fadeIn}
+          initial="hidden"
+          animate="visible"
+          className="max-w-4xl mx-auto"
+        >
+          <h2 className="text-3xl font-bold text-pink-400 mb-4">About Ravi</h2>
+          <p className="text-gray-300 text-lg leading-relaxed">
+            Hi, I'm Ravi! I'm passionate about vlogging, storytelling, and connecting with people. Through this blog, I hope to inspire, entertain, and inform readers from all walks of life. My journey started with a simple camera and a dream to share my experiences with the world.
+          </p>
+        </motion.div>
+      </section>
+
+  
+      <section className=" px-6 py-16">
+        <motion.div
+          variants={fadeIn}
+          initial="hidden"
+          animate="visible"
+          className="max-w-4xl mx-auto"
+        >
+          <h2 className="text-3xl font-bold text-pink-400 mb-4">Journey</h2>
+          <p className="text-gray-300 text-lg leading-relaxed">
+            Over the years, I've traveled across India, explored hidden gems, tasted amazing food, and met incredible people. My love for technology and photography helps me capture and share these moments in creative ways.
+          </p>
+        </motion.div>
+      </section>
+
+      <section className=" px-6 py-16">
+        <motion.div
+          variants={fadeIn}
+          initial="hidden"
+          animate="visible"
+          className="max-w-4xl mx-auto"
+        >
+          <h2 className="text-3xl font-bold text-pink-400 mb-4">About Ravi Ke Vlog</h2>
+          <p className="text-gray-300 text-lg leading-relaxed">
+            <strong className="text-white">Ravi Ke Vlog</strong> is a personal blog where I share my experiences, stories, and insights from daily life, travel, technology, and more. Whether you're here to read about new adventures, learn something new, or just have fun, there’s something for everyone.
+          </p>
+        </motion.div>
+      </section>
+
+   
+      <section className="px-6 py-16">
+        <motion.div
+          variants={fadeIn}
+          initial="hidden"
+          animate="visible"
+          className="max-w-4xl mx-auto text-center"
+        >
+          <h2 className="text-3xl font-bold text-pink-400 mb-4">Join Me</h2>
+          <p className="text-gray-300 text-lg leading-relaxed mb-6">
+            Join me as I explore new destinations, review gadgets, share travel tips, and tell stories that matter. Thank you for visiting and being a part of this journey!
+          </p>
+          <a
+            href="https://www.youtube.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block bg-pink-600 hover:bg-pink-700 text-white px-8 py-3 rounded-full font-semibold text-lg transition"
+          >
+            Visit My YouTube Channel
+          </a>
+        </motion.div>
+      </section>
+    </div>
+  );
+};
 
 export default About;

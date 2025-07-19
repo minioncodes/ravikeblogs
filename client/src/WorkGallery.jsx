@@ -48,10 +48,9 @@ const UserGallery = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white px-6 py-10">
       <h1 className="text-4xl mt-18 font-extrabold text-pink-400 mb-8 text-center drop-shadow-lg">
-        User Gallery
+      
       </h1>
 
-      {/* Category Buttons */}
       <div className="flex flex-wrap justify-center gap-3 mb-10">
         {categories.map((cat) => (
           <button
@@ -68,7 +67,6 @@ const UserGallery = () => {
         ))}
       </div>
 
-      {/* Loader / No Images / Gallery */}
       {loading ? (
         <div className="flex justify-center items-center h-40">
           <div className="animate-spin h-10 w-10 border-t-4 border-pink-500 rounded-full"></div>
@@ -99,7 +97,7 @@ const UserGallery = () => {
         </div>
       )}
 
-      {/* Fullscreen Preview */}
+   
       {previewImage && (
         <div
           onClick={() => setPreviewImage(null)}
