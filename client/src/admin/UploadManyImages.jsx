@@ -3,6 +3,8 @@ import { FiUploadCloud } from "react-icons/fi";
 
 export default function UploadImages() {
     const [selectedFiles, setSelectedFiles] = useState([]);
+    const [uploading, setUploading] = useState(false);
+
    
     const handleFileChange = (e) => {
         const files = Array.from(e.target.files).map((file) => ({
@@ -21,35 +23,38 @@ export default function UploadImages() {
         setSelectedFiles(updated);
     };
 
-    const handleUpload = async (e) => {
-        e.preventDefault();
-        const token=localStorage.getItem("access_token")
-        if (!selectedFiles.length) return alert("Please select images first");
+   const handleUpload = async (e) => {
+  e.preventDefault();
+  const token = localStorage.getItem("access_token");
+  if (!selectedFiles.length) return alert("Please select images first");
 
-        const formData = new FormData();
-        selectedFiles.forEach(({ file, customName, category, filters }) => {
-            formData.append("images", file);
-            formData.append("customNames[]", customName);
-            formData.append("category[]", category);
-            formData.append("filters[]", filters);
-        });
+  const formData = new FormData();
+  selectedFiles.forEach(({ file, customName, category, filters }) => {
+    formData.append("images", file);
+    formData.append("customNames[]", customName);
+    formData.append("category[]", category);
+    formData.append("filters[]", filters);
+  });
 
-        try {
-            const res = await fetch("https://backend-production-7e58.up.railway.app/api/image/uploadmany", {
-                method: "POST",
-                body: formData,
-                headers: {
-                    authorization: `Bearer ${token}`,
-                },
+  setUploading(true);
+  try {
+    const res = await fetch("https://backend-production-7e58.up.railway.app/api/image/uploadmany", {
+      method: "POST",
+      body: formData,
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    });
 
-            });
+    const data = await res.json();
+    console.log("Uploaded:", data);
+  } catch (err) {
+    console.error("Upload failed:", err.message);
+  } finally {
+    setUploading(false);
+  }
+};
 
-            const data = await res.json();
-            console.log("Uploaded:", data);
-        } catch (err) {
-            console.error("Upload failed:", err.message);
-        }
-    };
 
     return (
         <div className=" w-full bg-transparent flex items-center justify-center px-4 py-8">
@@ -161,13 +166,47 @@ export default function UploadImages() {
                         </div>
                     )}
 
-                    <button
-                        type="submit"
-                        className="w-full flex justify-center items-center gap-2 bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 hover:scale-[1.02] transition-transform text-white font-bold py-3 rounded-2xl shadow-md"
-                    >
-                        <FiUploadCloud className="w-5 h-5" />
-                        Upload The Images
-                    </button>
+                   <button
+  type="submit"
+  className={`w-full flex justify-center items-center gap-2 font-bold py-3 rounded-2xl shadow-md transition-all duration-300
+    ${uploading
+      ? "bg-gradient-to-r from-gray-700 via-gray-900 to-black cursor-not-allowed animate-pulse text-white"
+      : "bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 hover:scale-[1.02] text-white"
+    }`}
+  disabled={uploading}
+>
+  {uploading ? (
+    <>
+      <svg
+        className="animate-spin h-5 w-5 text-white"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+      >
+        <circle
+          className="opacity-25"
+          cx="12"
+          cy="12"
+          r="10"
+          stroke="currentColor"
+          strokeWidth="4"
+        ></circle>
+        <path
+          className="opacity-75"
+          fill="currentColor"
+          d="M4 12a8 8 0 018-8v8H4z"
+        ></path>
+      </svg>
+      <span>Uploading...</span>
+    </>
+  ) : (
+    <>
+      <FiUploadCloud className="w-5 h-5" />
+      Upload The Images
+    </>
+  )}
+</button>
+
                 </form>
             </div>
         </div>
