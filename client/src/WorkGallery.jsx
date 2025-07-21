@@ -22,8 +22,8 @@ const UserGallery = () => {
       setLoading(true);
       const url =
         category === "All"
-          ? "http://localhost:3000/api/image/getimages"
-          : `http://localhost:3000/api/image/getimage-category?category=${encodeURIComponent(
+          ? "https://backend-production-7e58.up.railway.app/api/image/getimages"
+          : `https:/backend-production-7e58.up.railway.app/api/image/getimage-category?category=${encodeURIComponent(
               category
             )}`;
       const res = await fetch(url);

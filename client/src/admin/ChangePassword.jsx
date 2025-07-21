@@ -25,7 +25,7 @@ function ChangePassword() {
 
     try {
       const response = await axios.put(
-        'http://localhost:3000/api/admin/update',
+        'https://backend-production-7e58.up.railway.app/api/admin/update',
         {
           oldPassword: formData.oldPassword,
           newPassword: formData.newPassword,

@@ -35,7 +35,7 @@ export default function UploadImages() {
         });
 
         try {
-            const res = await fetch("http://localhost:3000/api/image/uploadmany", {
+            const res = await fetch("https://backend-production-7e58.up.railway.app/api/image/uploadmany", {
                 method: "POST",
                 body: formData,
                 headers: {

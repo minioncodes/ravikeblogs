@@ -48,7 +48,7 @@ const Gallery = () => {
     }
 
     try {
-      const res = await fetch(`http://localhost:3000/api/image/delete/${id}`, {
+      const res = await fetch(`https://backend-production-7e58.up.railway.app/api/image/delete/${id}`, {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${token}`,
