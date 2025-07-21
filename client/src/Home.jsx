@@ -36,7 +36,7 @@ const Home = () => {
   const handleMouseLeave = () => setIsHovered(false);
 
   return (
-    <div className="relative w-full min-h-screen h-screen max-h-[100dvh] overflow-hidden">
+    <div className="relative w-full min-h-screen h-screen max-h-full overflow-hidden">
       <div className="flex-shrink-0 w-full h-full flex items-center justify-center">
         <img
           src={images[currentIndex]}
@@ -50,10 +50,10 @@ const Home = () => {
             to="/about"
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
-            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white px-6 py-3 md:px-12 md:py-5 rounded-lg text-lg lg:text-7xl font-semibold shadow-lg"
+            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white px-6 py-3 md:px-12 md:py-5 rounded-lg text-7xl lg:text-7xl font-semibold shadow-lg"
             style={{ pointerEvents: "auto", zIndex: 2 }}
           >
-            About Me
+            AboutMe
           </Link>
         )}
         {currentIndex === 1 && (
@@ -61,10 +61,10 @@ const Home = () => {
             to="/user-gallery"
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
-            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white px-6 py-3 md:px-12 md:py-5 rounded-lg text-lg md:text-7xl font-semibold shadow-lg"
+            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white px-6 py-3 md:px-12 md:py-5 rounded-lg text-7xl inline md:text-7xl font-semibold shadow-lg"
             style={{ pointerEvents: "auto", zIndex: 2 }}
           >
-            My Work
+            MyWork
           </Link>
         )}
       </div>
