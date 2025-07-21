@@ -15,7 +15,7 @@ const Gallery = () => {
         return;
       }
 
-      const res = await fetch('http://localhost:3000/api/image/getimages', {
+      const res = await fetch('https://backend-production-7e58.up.railway.app/api/image/getimages', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -34,7 +34,7 @@ const Gallery = () => {
       }
     } catch (err) {
       console.error('Error fetching images:', err);
-      navigate('/admin-login');
+      navigate('/admin');
     } finally {
       setLoading(false);
     }

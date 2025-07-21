@@ -27,7 +27,7 @@ const AdminCategoryGallery = () => {
 
     try {
       setLoading(true);
-      const endpoint = `http://localhost:3000/api/image/getimage-category?category=${encodeURIComponent(category)}`;
+      const endpoint = `https://backend-production-7e58.up.railway.app/api/image/getimage-category?category=${encodeURIComponent(category)}`;
       const res = await fetch(endpoint, {
         headers: {
           Authorization: `Bearer ${token}`,

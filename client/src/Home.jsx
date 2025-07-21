@@ -72,7 +72,14 @@ const Home = () => {
                     />
                 ))}
             </div>
-
+<button>
+                <Link
+                    to="/admin"
+                    className="absolute bottom-4 right-4 md:bottom-8 md:right-8 bg-pink-600 text-white px-4 py-2 rounded-full shadow-lg hover:bg-pink-700 transition-colors"
+                >
+                    Admin
+                </Link>
+</button>
             <div className="absolute left-4 bottom-4 md:left-8 md:bottom-8 z-20 text-xs md:text-sm text-white bg-black/40 px-3 py-1 rounded select-none pointer-events-none">
                 © 2025 RKV. All rights reserved.
             </div>
