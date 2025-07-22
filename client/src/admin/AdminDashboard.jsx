@@ -13,6 +13,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Gallery from "./Gallery";
 import ChangePassword from "./ChangePassword";
 import UploadImages from "./UploadManyImages";
+import AdminCategoryGallery from "./AdminCategoryGallery";
 
 const AdminDashboard = () => {
   const [loading, setLoading] = useState(true);
@@ -47,10 +48,7 @@ const AdminDashboard = () => {
         return <UploadImages />;
       case "sort":
         return (
-          <div>
-            <h1 className="text-3xl font-bold text-green-400 mb-4">Sort Pictures</h1>
-            <p className="text-gray-300">Feature coming soon!</p>
-          </div>
+         <AdminCategoryGallery />
         );
       case "change-password":
         return <ChangePassword />;
@@ -61,7 +59,7 @@ const AdminDashboard = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex justify-center items-center bg-gray-900">
+      <div className="min-h-screen flex justify-center items-center">
         <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-green-500 border-opacity-50"></div>
       </div>
     );

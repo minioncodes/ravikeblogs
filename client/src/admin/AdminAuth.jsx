@@ -18,7 +18,7 @@ const AdminAuth = () => {
     setError("");
 
     try {
-      const res = await fetch("http://localhost:3000/api/admin/signin", {
+      const res = await fetch("https://backend-production-7e58.up.railway.app/api/admin/signin", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),

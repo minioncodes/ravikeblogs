@@ -1,40 +1,48 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const Gallery = () => {
+const categories = [
+  "Nature",
+  "Portrait",
+  "Animals",
+  "Architecture",
+  "Abstract",
+  "Travel",
+  "Food"
+];
+
+const AdminCategoryGallery = () => {
   const [images, setImages] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [selectedCategory, setSelectedCategory] = useState("Nature");
+  const [loading, setLoading] = useState(false);
   const [fullscreenImage, setFullscreenImage] = useState(null);
   const navigate = useNavigate();
 
-  const fetchImages = async () => {
-    try {
-      const token = localStorage.getItem('access_token');
-      if (!token) {
-        navigate('/admin');
-        return;
-      }
+  const fetchImagesByCategory = async (category) => {
+    const token = localStorage.getItem('access_token');
+    if (!token) {
+      navigate('/admin');
+      return;
+    }
 
-      const res = await fetch('https://backend-production-7e58.up.railway.app/api/image/getimages', {
+    try {
+      setLoading(true);
+      const endpoint = `https://backend-production-7e58.up.railway.app/api/image/getimage-category?category=${encodeURIComponent(category)}`;
+      const res = await fetch(endpoint, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
 
-      if (!res.ok) {
-        throw new Error('Unauthorized or failed to fetch');
-      }
-
       const data = await res.json();
-
       if (data.success) {
         setImages(data.images);
       } else {
-        console.error('Failed to fetch images');
+        setImages([]);
       }
     } catch (err) {
-      console.error('Error fetching images:', err);
-      navigate('/admin');
+      console.error("Error fetching:", err);
+      setImages([]);
     } finally {
       setLoading(false);
     }
@@ -58,49 +66,69 @@ const Gallery = () => {
       const data = await res.json();
       if (data.success) {
         setFullscreenImage(null);
-        fetchImages(); 
+        fetchImagesByCategory(selectedCategory);
       } else {
-        alert('Failed to delete image');
+        alert("Failed to delete image");
       }
     } catch (err) {
-      console.error('Error deleting image:', err);
-      alert('Error deleting image');
+      console.error("Delete error:", err);
+      alert("Error deleting image");
     }
   };
 
   useEffect(() => {
-    fetchImages();
-  }, []);
+    fetchImagesByCategory(selectedCategory);
+  }, [selectedCategory]);
 
   return (
-    <div className="min-h-screen px-4 py-8  text-white">
+    <div className="min-h-screen  text-white px-6 py-8">
+   
+      <div className="flex flex-wrap justify-center gap-3 mb-8">
+        {categories.map((cat) => (
+          <button
+            key={cat}
+            onClick={() => setSelectedCategory(cat)}
+            className={`px-5 py-2 rounded-full text-sm font-semibold tracking-wide shadow-md transition-all ${
+              selectedCategory === cat
+                ? "bg-pink-600 text-white"
+                : "bg-white/10 text-pink-200 hover:bg-white/20"
+            }`}
+          >
+            {cat}
+          </button>
+        ))}
+      </div>
 
       {loading ? (
         <div className="flex justify-center items-center h-40">
           <div className="animate-spin h-10 w-10 border-t-4 border-pink-500 rounded-full"></div>
         </div>
       ) : images.length === 0 ? (
-        <p className="text-center text-gray-400">No images found.</p>
+        <p className="text-center text-gray-400">No images found in "{selectedCategory}" category.</p>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {images.map((img, index) => (
+          {images.map((img) => (
             <div
-              key={img._id || index}
+              key={img._id}
               className="overflow-hidden rounded-xl shadow-lg hover:scale-105 transition-transform duration-300 border border-white/10 cursor-pointer"
               onClick={() => setFullscreenImage(img)}
             >
               <img
                 src={img.url}
-                alt={img.customName || `Gallery ${index + 1}`}
+                alt={img.customName}
                 className="w-full h-64 object-cover"
                 loading="lazy"
               />
+              <div className="p-2">
+                <h3 className="font-semibold text-white truncate">{img.customName}</h3>
+                <p className="text-sm text-pink-300">{img.category}</p>
+              </div>
             </div>
           ))}
         </div>
       )}
 
-     
+    
       {fullscreenImage && (
         <div className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center px-4">
           <div className="relative w-full max-w-5xl">
@@ -131,4 +159,4 @@ const Gallery = () => {
   );
 };
 
-export default Gallery;
+export default AdminCategoryGallery;
