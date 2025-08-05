@@ -1,9 +1,10 @@
-import React from "react";
 import { motion } from "framer-motion";
 import { FaInstagram, FaYoutube, FaFacebook } from "react-icons/fa";
+import profileImg from "../src/assets/profile.png"; // Adjust the path as necessary
+import { Link } from "react-router-dom";
 
-const profileImg =
-  "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=facearea&w=400&h=400&facepad=2";
+// const profileImg =
+//   "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=facearea&w=400&h=400&facepad=2";
 
 const fadeIn = {
   hidden: { opacity: 0, y: 30 },
@@ -29,6 +30,7 @@ const About = () => {
 
       <section className="flex items-center justify-center px-4 py-16">
         <motion.div
+        
           variants={fadeIn}
           initial="hidden"
           animate="visible"
@@ -52,26 +54,26 @@ const About = () => {
 
       <section className="px-6 py-16">
         <motion.div variants={fadeIn} initial="hidden" animate="visible" className="max-w-4xl mx-auto">
-          <h2 className="text-3xl font-bold text-pink-400 mb-4">About Ravi</h2>
+          <h2 className="text-3xl font-bold text-pink-400 mb-4">Who Am I</h2>
           <p className="text-gray-300 text-lg leading-relaxed">
-            Hi, I'm Ravi! I'm passionate about vlogging, storytelling, and connecting with people...
+           I’m Ravi, a travel vlogger and nature photographer based in Lucknow, India. I explore hidden gems, scenic trails, and local cultures—capturing the soul of every journey through my lens.
           </p>
         </motion.div>
       </section>
 
       <section className="px-6 py-16">
         <motion.div variants={fadeIn} initial="hidden" animate="visible" className="max-w-4xl mx-auto">
-          <h2 className="text-3xl font-bold text-pink-400 mb-4">Journey</h2>
+          <h2 className="text-3xl font-bold text-pink-400 mb-4"><Link to="/user-gallery">What I Do</Link></h2>
           <p className="text-gray-300 text-lg leading-relaxed">
-            Over the years, I've traveled across India, explored hidden gems...
+            From remote waterfalls to bustling hill stations, I create cinematic travel reels, YouTube vlogs, and still-life photography that tell real stories. My content blends adventure with visual storytelling to inspire and inform.
           </p>
         </motion.div>
       </section>
       <section className="px-6 py-16">
         <motion.div variants={fadeIn} initial="hidden" animate="visible" className="max-w-4xl mx-auto">
-          <h2 className="text-3xl font-bold text-pink-400 mb-4">About Ravi Ke Vlog</h2>
+          <h2 className="text-3xl font-bold text-pink-400 mb-4">Why I Do It</h2>
           <p className="text-gray-300 text-lg leading-relaxed">
-            <strong className="text-white">Ravi Ke Vlog</strong> is a personal blog where I share my experiences...
+         Travel isn’t just about places—it’s about moments, people, and memories. Through my work, I aim to help others see the beauty in the world around them, and maybe even take the first step on their own journey.
           </p>
         </motion.div>
       </section>
