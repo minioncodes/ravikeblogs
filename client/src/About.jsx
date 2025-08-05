@@ -36,7 +36,7 @@ const About = () => {
           className="flex flex-col md:flex-row items-center gap-8 max-w-5xl w-full"
         >
           <img
-            src="../src/assets/profile.png" // Adjust the path as necessary
+            src="/profile.png" // Adjust the path as necessary
             alt="Ravi's profile"
             className="w-40 h-40 rounded-full border-4 border-pink-500 shadow-lg object-cover"
           />
@@ -70,7 +70,7 @@ const About = () => {
       </section>
       <section className="px-6 py-16">
         <motion.div variants={fadeIn} initial="hidden" animate="visible" className="max-w-4xl mx-auto">
-          <h2 className="text-3xl font-bold text-pink-400 mb-4">Why I Do It</h2>
+          <h2 className="text-3xl font-bold text-pink-400 mb-4">Why I Do It ➤</h2>
           <p className="text-gray-300 text-lg leading-relaxed">
          Travel isn’t just about places—it’s about moments, people, and memories. Through my work, I aim to help others see the beauty in the world around them, and maybe even take the first step on their own journey.
           </p>
