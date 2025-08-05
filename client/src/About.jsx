@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { FaInstagram, FaYoutube, FaFacebook } from "react-icons/fa";
-import profileImg from "../src/assets/profile.png"; // Adjust the path as necessary
+
 import { Link } from "react-router-dom";
 
 
@@ -36,7 +36,7 @@ const About = () => {
           className="flex flex-col md:flex-row items-center gap-8 max-w-5xl w-full"
         >
           <img
-            src={profileImg}
+            src="../src/assets/profile.png" // Adjust the path as necessary
             alt="Ravi's profile"
             className="w-40 h-40 rounded-full border-4 border-pink-500 shadow-lg object-cover"
           />
