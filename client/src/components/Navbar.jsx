@@ -13,7 +13,7 @@ const Navbar = () => {
                     bg-transparent
                     backdrop-blur-xl
                     rounded-full shadow-[0_8px_30px_rgba(0,0,0,0.1)]
-                    px-6 sm:px-10 py-4 sm:py-5 z-50 flex items-center justify-between
+                    px-6 sm:px-10 z-50 flex items-center justify-between
                     transition-transform duration-500
                     scale-100
                 `}
