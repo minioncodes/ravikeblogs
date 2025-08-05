@@ -47,6 +47,10 @@ const UserGallery = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white px-6 py-10">
+      <div>
+        {" "} <br />
+        { " "}
+      </div>
       <h1 className="text-4xl mt-18 font-extrabold text-pink-400 mb-8 text-center drop-shadow-lg">
       
       </h1>

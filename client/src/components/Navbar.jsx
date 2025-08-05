@@ -8,12 +8,12 @@ const Navbar = () => {
       <nav
         style={{ fontFamily: "'Poppins', sans-serif" }}
         className={`
-                    fixed top-2 left-1/2 transform -translate-x-1/2
+                    fixed top-1 left-1/2 transform -translate-x-1/2
                     w-[90vw] md:w-[75vw]
                     bg-transparent
                     backdrop-blur-xl
                     rounded-full shadow-[0_8px_30px_rgba(0,0,0,0.1)]
-                    px-6 sm:px-10 z-50 flex items-center justify-between
+                    px-6 sm:px-15 z-50 flex items-center justify-between
                     transition-transform duration-500
                     scale-100
                 `}

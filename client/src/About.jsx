@@ -21,7 +21,12 @@ const fadeIn = {
 const About = () => {
   return (
     <div className="text-white font-sans bg-gradient-to-br from-gray-900 via-gray-800 to-black">
-      {/* Profile Section */}
+      <div>
+        {" "} <br />
+        { " "}
+      </div>
+<div className="mx-auto px-4 py-8">
+
       <section className="flex items-center justify-center px-4 py-16">
         <motion.div
           variants={fadeIn}
@@ -45,7 +50,6 @@ const About = () => {
         </motion.div>
       </section>
 
-      {/* About Section */}
       <section className="px-6 py-16">
         <motion.div variants={fadeIn} initial="hidden" animate="visible" className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold text-pink-400 mb-4">About Ravi</h2>
@@ -55,7 +59,6 @@ const About = () => {
         </motion.div>
       </section>
 
-      {/* Journey Section */}
       <section className="px-6 py-16">
         <motion.div variants={fadeIn} initial="hidden" animate="visible" className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold text-pink-400 mb-4">Journey</h2>
@@ -64,8 +67,6 @@ const About = () => {
           </p>
         </motion.div>
       </section>
-
-      {/* About Vlog */}
       <section className="px-6 py-16">
         <motion.div variants={fadeIn} initial="hidden" animate="visible" className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold text-pink-400 mb-4">About Ravi Ke Vlog</h2>
@@ -74,8 +75,6 @@ const About = () => {
           </p>
         </motion.div>
       </section>
-
-      {/* Join Section */}
       <section className="px-6 py-16 text-center">
         <motion.div variants={fadeIn} initial="hidden" animate="visible" className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold text-pink-400 mb-4">Join Me</h2>
@@ -92,8 +91,6 @@ const About = () => {
           </a>
         </motion.div>
       </section>
-
-      {/* Social Media Links */}
       <section className="px-6 pb-20 text-center">
         <motion.div variants={fadeIn} initial="hidden" animate="visible" className="max-w-4xl mx-auto">
           <h2 className="text-2xl font-bold text-pink-400 mb-4">Follow Me</h2>
@@ -128,6 +125,14 @@ const About = () => {
           </div>
         </motion.div>
       </section>
+</div>
+
+
+
+
+
+
+     
     </div>
   );
 };
