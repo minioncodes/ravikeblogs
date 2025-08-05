@@ -16,7 +16,7 @@ const UserGallery = () => {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [loading, setLoading] = useState(false);
   const [previewImage, setPreviewImage] = useState(null);
-
+// const [error, setError] = useState(null);
   const fetchImages = async (category = "All") => {
     try {
       setLoading(true);
@@ -101,7 +101,7 @@ const UserGallery = () => {
         </div>
       )}
 
-   
+
       {previewImage && (
         <div
           onClick={() => setPreviewImage(null)}
