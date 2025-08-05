@@ -62,7 +62,7 @@ const About = () => {
 
       <section className="px-6 py-16">
         <motion.div variants={fadeIn} initial="hidden" animate="visible" className="max-w-4xl mx-auto">
-          <h2 className="text-3xl font-bold text-pink-400 mb-4"><Link to="/user-gallery">What I Do</Link></h2>
+          <h2 className="text-3xl font-bold text-pink-400 mb-4"><Link to="/user-gallery">What I Do ➤</Link></h2>
           <p className="text-gray-300 text-lg leading-relaxed">
             From remote waterfalls to bustling hill stations, I create cinematic travel reels, YouTube vlogs, and still-life photography that tell real stories. My content blends adventure with visual storytelling to inspire and inform.
           </p>
@@ -70,7 +70,7 @@ const About = () => {
       </section>
       <section className="px-6 py-16">
         <motion.div variants={fadeIn} initial="hidden" animate="visible" className="max-w-4xl mx-auto">
-          <h2 className="text-3xl font-bold text-pink-400 mb-4">Why I Do It ➤</h2>
+          <h2 className="text-3xl font-bold text-pink-400 mb-4">Why I Do It </h2>
           <p className="text-gray-300 text-lg leading-relaxed">
          Travel isn’t just about places—it’s about moments, people, and memories. Through my work, I aim to help others see the beauty in the world around them, and maybe even take the first step on their own journey.
           </p>
