@@ -3,8 +3,7 @@ import { FaInstagram, FaYoutube, FaFacebook } from "react-icons/fa";
 import profileImg from "../src/assets/profile.png"; // Adjust the path as necessary
 import { Link } from "react-router-dom";
 
-// const profileImg =
-//   "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=facearea&w=400&h=400&facepad=2";
+
 
 const fadeIn = {
   hidden: { opacity: 0, y: 30 },
